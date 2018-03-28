@@ -9,20 +9,20 @@ form = """
 <html>
     <head>
         <style>
-            form {
+            form {{
                 background-color: #eee;
                 padding: 20px;
                 margin: 0 auto;
                 width: 540px;
                 font: 16px sans-serif;
                 border-radius: 10px;
-            }
+            }}
 
-            textarea {
+            textarea {{
                 margin: 10px 0;
                 width: 540px;
                 height: 120px;
-            }
+            }}
         </style>
     </head>
     <body>
@@ -30,7 +30,7 @@ form = """
             <label>Rotate by:
                 <input type="text" name="rot" value="0" />
             </label>
-            <textarea name="text"></textarea>
+            <textarea name="text">{0}</textarea>
             <input type="submit">
         </form>
     </body>
@@ -38,13 +38,14 @@ form = """
 
 @app.route("/")
 def index():
-    return form
+    return form.format(...) #should this be ... or 'form' or {0}?
 
 @app.route("/", methods=['POST'])
 def encrypt():
-    rot_encrypt = request.POST['int(rot)']
+    rot_encrypt = request.POST['int(rot)'] #does 'int(rot)' work as syntax?
     text_encrypt = request.POST['text']
     new_string = rotate_string(text_encrypt, rot_encrypt)
-    return "<h1>" + new_string + "<h1>"
+    return "<h1>" + form.format(...) + "<h1>"
+                            # should it be ... or 'new_string' or {0}?
 
 app.run()
