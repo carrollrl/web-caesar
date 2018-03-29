@@ -38,14 +38,16 @@ form = """
 
 @app.route("/")
 def index():
-    return form.format(...) #should this be ... or 'form' or {0}?
+    return form
+    
 
 @app.route("/", methods=['POST'])
 def encrypt():
-    rot_encrypt = request.POST['int(rot)'] #does 'int(rot)' work as syntax?
-    text_encrypt = request.POST['text']
+    rot_encrypt = request.form['int(rot)'] 
+       #does 'int(rot)' work as syntax?
+    text_encrypt = request.form['text']
     new_string = rotate_string(text_encrypt, rot_encrypt)
-    return "<h1>" + form.format(...) + "<h1>"
+    return "<h1>" + new_string + "<h1>"
                             # should it be ... or 'new_string' or {0}?
 
 app.run()
